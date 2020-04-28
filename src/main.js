@@ -1,7 +1,8 @@
 
 var currentPage = 1;
 var numberPerPage = 3;
-var numberOfPages = 10;   
+var numberOfPages = 0;  
+var result1=[];
 document.getElementById('search_btn').addEventListener('click', function(){
 	var title = document.getElementById('title_text').value;
 	var request = new Request('https://www.omdbapi.com/?apikey=9ce23488&s='+title);
@@ -9,22 +10,22 @@ document.getElementById('search_btn').addEventListener('click', function(){
 		return result.json();
 	}).then(function (data){
         var len = data.Search.length;
-         console.log(getNumberOfPages(len));
-         result=makelist(data);
-         loadList(result);
+         numberOfPages= getNumberOfPages(len);
+         makelist(data);
+         
 });
 });
 
 function getNumberOfPages(len) {
-    return Math.floor(len / numberPerPage);
+    return Math.ceil(len / numberPerPage);
 }
 function nextPage() {
     currentPage += 1;
-    loadList();
+    loadList(result1);
 }
 function previousPage() {
     currentPage -= 1;
-    loadList();
+    loadList(result1);
 }
 function loadList(result1) {
     
@@ -45,11 +46,11 @@ function makelist(data){
         result.push([i,data[i]]);
         }
         // console.log(result);
-    var result1=[];
+    
     for( var i in result[0][1]){
         result1.push(result[0][1][i]);
     }
-    return result1;
+    loadList(result1);
 
 }
 
@@ -81,3 +82,4 @@ function check() {
     document.getElementById("previous").disabled = currentPage == 1 ? true : false;
    
 }
+window.onload = load;

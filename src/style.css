@@ -46,7 +46,8 @@ body{
     font-size: 20px;
     max-height: 450px;
     color:black;
-    
+    box-shadow: 5px 10px rgba(153, 153, 146, 0.973);
+    text-shadow: rgb(155, 129, 129);
     background-color: rgba(238, 237, 229, 0.973);
   
 }
